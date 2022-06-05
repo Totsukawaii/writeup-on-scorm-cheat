@@ -12,6 +12,7 @@ Feel free to skip over this paragraph if you just want to know about the cheat. 
 If you were ever in the computer lab in primary school, changing the page source of wikipedia with 'inspect element' and then trolling your friend with the edited page would the funniest thing.
 Well, inspect element is part of Chrome Developer Tools which is the core of this writeup - the debugger and all it's features are simply irreplaceable.
 
+First, open up our scorm package on chrome.  
 Clicking inspect element or pressing f12 (shortcut) on Chrome look something like this. The HTML code under the Elements tab is what generates the basic UI of the website, it completely irrelevant to us for now so we can ignore it.
 
 ![](1.PNG)
@@ -31,6 +32,7 @@ And here it is:
 
 ![](3.PNG)
 
+*If you can't find quizplayer.js I'm sorry, try a different scorm package"
 <br/><br/>
 However, all the code in mushed together and is not really readable for us. Click on the curly braces at the bottom to format the code.
 
