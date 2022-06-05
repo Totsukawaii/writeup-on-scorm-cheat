@@ -32,7 +32,7 @@ And here it is:
 
 ![](3.PNG)
 
-*If you can't find quizplayer.js I'm sorry, try a different scorm package"
+*If you can't find quizplayer.js I'm sorry, try a different scorm package*
 <br/><br/>
 However, all the code in mushed together and is not really readable for us. Click on the curly braces at the bottom to format the code.
 
