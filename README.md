@@ -24,7 +24,7 @@ To find the Javascript code, we click the 'Sources' tab. The 'Sources' tab is wh
 ![](2.PNG)
 
 <br/><br/>
-Under the 'Page' tab we can see a few folders. SCORM packages run client sided (on your browser) instead of server sided (another computer on the internet). Meaning our SCORM package's Javascript code is located somewhere here. You might want to stop here and see if you can find our javascript file (it has the .js extension) that is running the quiz. 
+Under the 'Page' tab we can see a few folders. SCORM packages run client sided (on your browser) instead of server sided (another computer on the internet). Meaning our SCORM package's Javascript code is located somewhere here. You might want to stop here and see if you can find our javascript file (it has the .js extension) that is running the quiz.  
 .  
 .  
 .  
@@ -48,7 +48,7 @@ After a few minutes of searching, I found something interesting. `"reviewWithCor
 ![](5.PNG)
 
 <br/><br/>
-`"reviewWithCorrectAnswer"` is a [*literal 🖱️*](## "A literal is a value that is directly embedded in the code, as opposed to a variable which is assigned a value") and a [*string 🖱️*](## "A string is a string of characters, number, etc. denoted by the two quotation marks surrounding it"). We can see that the [*variable 🖱️*](## "A variable is a container that stores a value. For example, a variable named dog can be equal to 1, or 'hello', or -69, or 'banana' depeneding on what it was assigned") `a` is being check to see if it is equal to the string literal `"reviewWithoutCorrectAnswers"` and `"reiviewWithCorrectAnswers"` as there is an `==` operator between them. Meaning the variable `a` was either set to be `"reviewWithoutCorrectAnswers"` or `"reviewWithCorrectAnswers"` earlier on in the code.  
+`"reviewWithCorrectAnswer"` is a [*literal 🖱️*](## "A literal is a value that is directly embedded in the code, as opposed to a variable which is assigned a value") and a [*string 🖱️*](## "A string is a string of characters, number, etc. denoted by the two quotation marks surrounding it"). We can see that the [*variable 🖱️*](## "A variable is a container that stores a value. For example, a variable named dog can be equal to 1, or 'hello', or -69, or 'banana' depeneding on what it was assigned") `a` is being check to see if it is equal to the string literal `"reviewWithoutCorrectAnswers"` and `"reviewWithCorrectAnswers"` as there is an `==` operator between them. Meaning the variable `a` was either set to be `"reviewWithoutCorrectAnswers"` or `"reviewWithCorrectAnswers"` earlier on in the code.  
 Hm... So that means that all we have to do is find the code that does that and make it so it always sets to `"reviewWithCorrectAnswers"`. There are 23 search results for `"reviewWithCorrectAnswers"` we can go through each of them to check what the codes do.
 
 So I went through all the results and found two `"reviewWithCorrectAnswers"` that are used to set something rather than being used for `==` comparison.  
@@ -180,7 +180,7 @@ It can be found by using inspect element on the page and finding the `src=` attr
 ![](13.PNG)
 
 Here is the code you need to add in the UserScript to make sure it runs in the iframe:
-'// @match        https://myleo.rp.edu.sg/SPStorage/ShareFolder/*'
+`// @match        https://myleo.rp.edu.sg/SPStorage/ShareFolder/*`
 
 ## Final UserScript
 
