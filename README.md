@@ -34,7 +34,7 @@ And here it is:
 
 *If you can't find quizplayer.js I'm sorry, try a different scorm package*
 <br/><br/>
-However, all the code in mushed together and is not really readable for us. Click on the curly braces at the bottom to format the code.
+However, all the code is mushed together and is not really readable for us. Click on the curly braces at the bottom to format the code.
 
 ![](4.PNG)
 
@@ -210,23 +210,27 @@ window.String.prototype.split = function(){ // Redefine the function
 
 Okay let me explain.
 
-<hr/>
+---
+
 `let count = 0;` `&& count == 0` `count = 1;`
 
 These few codes are to make sure Bz is only redefined once. Since `String.prototype.split` is going to be called thousands of times as it is a common global function.
 
-<hr/>
+---
+
 `typeof arguments.callee.caller.caller == 'function' && arguments.callee.caller.caller.toString().includes("reviewWithCorrectAnswers")`
 
 `arguments.callee.caller.caller` refers to the anonymous function embodying the quizplayer.js file.  
 This few codes basically makes sure that the `String.prototype.split` call came from the anonymous function in quizplayer.js instead of another random call from another file.
 
-<hr/>
+---
+
 `let temp = arguments.callee.caller.caller.toString();`
 
 This stores the string of our anonymous function in a variable `temp`
 
-<hr/>
+---
+
 `/var c=[A-Za-z][A-Za-z]\(a\)\,d\=[A-Za-z][A-Za-z]\(c\.settings\(\)\)\;/`
 
 This is the regex string to search for a specific pattern.  
@@ -236,12 +240,14 @@ The pattern it is finding is the one highlighted below:
 
 Note the reason why we need to use regex in the first place is because the names of the variables and functions change throughout different scorm packages. The function `Bz` maybe be named a differently e.g. `Ca`. Therefore the regex string takes into account these changes and finds the pattern in the code.
 
-<hr/>
+---
+
 `temp = temp.replace(reg, 'return "reviewWithCorrectAnswers";');`
 
 This replaces the string found with regex (highlighted in the above image) with `return "reviewWithCorrectAnswers"`
 
-<hr/>
+---
+
 `let newfunction = new Function(temp.substring(temp.indexOf('{')+1,temp.lastIndexOf('}')));`
 
 This creates a fake anonymous function copy of the previous anonymous function but we have edited the `Bz` function to `return "reviewWithCorrectAnswers"`
