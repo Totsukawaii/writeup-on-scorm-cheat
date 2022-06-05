@@ -10,9 +10,9 @@ Well it first started when my teacher said he was gonna start grading the scorm 
 ## Part 1. Cheating with Chrome Developer Tools
 
 If you were ever in the computer lab in primary school, changing the page source of wikipedia with 'inspect element' and then trolling your friend with the edited page would the funniest thing.
-Well, inspect element is part of Chrome Developer Tools which is the core of this writeup - the debugger and all it's features are simply irreplacable.
+Well, inspect element is part of Chrome Developer Tools which is the core of this writeup - the debugger and all it's features are simply irreplaceable.
 
-Clicking inspect element or pressing f12 (shortcut) on Chrome look something like this. The HTML code under the Elements tab is what generates the basic UI of the website, it completely irrelavant to us for now so we can ignore it.
+Clicking inspect element or pressing f12 (shortcut) on Chrome look something like this. The HTML code under the Elements tab is what generates the basic UI of the website, it completely irrelevant to us for now so we can ignore it.
 
 ![](1.PNG)
 
@@ -61,7 +61,7 @@ So by editing this function to always return `"reviewWithCorrectAnswers"` this w
 The question is, how do we edit the function? You see we can't just click into the javascript file and start typing into it like a text editor.
 
 💡 We have to redefine the function through the console. In order to do that we must first understand what are scopes.  
-Scopes are like one way mirrors, someone in a higher scope cannot see someone in a lower scope but someone in a lower scope can see the person in the higher scope. In the context of code, code running outside a function cannot use variables that are defined in the function(they can only call the function itself) but the code inside the function can use everything outside. There are some nuances but this is all I'm capable of explaining.
+Scopes are like one way mirrors, someone in a higher scope cannot see someone in a lower scope but someone in a lower scope can see the person in the higher scope. In the context of code, code running outside a function cannot use variables that are defined in the function(they can only call the function itself) but the code inside the function can use everything outside. There are some nuances, but this is all I'm capable of explaining.
 
 Now, `Bz` is a function located inside another function. We can see this as there is a one tab indent before the start of `function Bz(a, b) {` at line 28063, if we scroll up to line 1 where there is a `{` and the last line of the file where there is a `}` we can see that the entire Javascript file is encased in a function. This function however does not have a name; it is called an anonymous function. Unlike a normal function that waits to be called, the code in an anonymous function is ran the moment it is defined.  
 It looks like this:
@@ -108,7 +108,7 @@ We start the quiz and the correct answers are displayed to us.
 
 ## Part 2. Making a UserScript with TamperMonkey
 
-Well what if you want to cheat but you don't want to do all the steps everytime you have to take the quiz? You can achieve that with TamperMonkey. TamperMonkey is a userscript manager that allows you to run a certain script on the browser the moment you enter a page. At this point you would need to have a basic level of programming knowledge to understand what's going on.
+Well what if you want to cheat but you don't want to do all the tedious steps every time you have to take the quiz? You can achieve that with TamperMonkey. TamperMonkey is a userscript manager that allows you to run a certain script on the browser the moment you enter a page. At this point you would need to have a basic level of programming knowledge to understand what's going on.
 
 I already made the script so you can [download](https://greasyfork.org/en/scripts/444642-scorm-cheater/code) it along with TamperMonkey to start effortlessly cheating.
 
@@ -224,7 +224,7 @@ This stores the string of our anonymous function in a variable `temp`
 ### `/var c=[A-Za-z][A-Za-z]\(a\)\,d\=[A-Za-z][A-Za-z]\(c\.settings\(\)\)\;/`
 
 This is the regex string to search for a specific pattern.  
-The pattern it is finding is the one higlighted below:
+The pattern it is finding is the one highlighted below:
 
 ![](14.PNG)
 
@@ -246,5 +246,5 @@ Good luck🍀
 
 ## Bonus challenge
 
-Try manipulate Javascript to get an absurd score for your quiz like 999 or something.  
+Try manipulating Javascript to get an absurd score for your quiz like 999 or something.  
 JK don't do it you'll get banned.
