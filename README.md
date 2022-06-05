@@ -3,11 +3,11 @@
 SCORM packages - they are simply the worst things ever right? ...Can't I just cheat on this? Yes, and it's super easy.
 
 
-This writeup is designed as a follow-along beginner tutorial. You only need bare minimum or no programming knowledge to follow along with this tutorial, I myself had not even seen Javascript until the day I started trying to make this cheat. I would be describing my entire process of discovering and making the scorm cheat so feel free to skip over the boring parts.
+This writeup is designed as a follow-along beginner tutorial. You only need bare minimum or no programming knowledge to follow along with the first part of this tutorial, I myself had not even seen Javascript until the day I started trying to make this cheat. I would be describing my entire process of discovering and making the scorm cheat so feel free to skip over the boring parts.
 
 Well it first started when my teacher said he was gonna start grading the scorm packages. Well you know SCORM packages aren't really well regulated... They have unlimited time limits and friends can share the answers among themselves so I was not really happy about it. Then I got really unhappy when I failed the quiz after three attempts on the open ended question. The worst part is I could not even view the correct answers for the scorm quiz afterwards. That's when I came to a realization: why not just make the scorm reveal the answers to me? I searched google for 'scorm cheat hack' but although there were many people saying it how easy it was to cheat on scorm packages, there were no resources teaching you how to do it. So what did I do then? Well obviously I started out right clicking the page and clicking 'inspect element'.
 
-## Cheating with Chrome Developer Tools
+## Part 1. Cheating with Chrome Developer Tools
 
 If you were ever in the computer lab in primary school, changing the page source of wikipedia with 'inspect element' and then trolling your friend with the edited page would the funniest thing.
 Well, inspect element is part of Chrome Developer Tools which is the core of this writeup - the debugger and all it's features are simply irreplacable.
@@ -18,12 +18,12 @@ Clicking inspect element or pressing f12 (shortcut) on Chrome look something lik
 
 <br/><br/>
 What we want to look at is the Javascript code working behind the scenes. Javascript is what makes the page dynamic. If you click on some button on the page or perform some gesture with your mouse; all of it is recorded by Javascript and it uses that information to decide how to change information on the page e.g. your total score.
-To find the Javascript code, we click the 'Sources' tab. The 'Sources' tab is where all the extra files that were loaded in from the 'Elements' tab, through `src=`, are located.
+To find the Javascript code, we click the 'Sources' tab. The 'Sources' tab is where all the extra files that were loaded using `src=""` from the 'Elements' tab.
 
 ![](2.PNG)
 
 <br/><br/>
-Under the 'Page' tab we can see a few folders. scorm packages run client sided (on your browser) instead of server sided (another computer on the internet). That means our scorm Javascript code is located somewhere here. You might want to stop here and see if you can find our javascript file (it has the .js extension) that is running the quiz. 
+Under the 'Page' tab we can see a few folders. SCORM packages run client sided (on your browser) instead of server sided (another computer on the internet). Meaning our SCORM package's Javascript code is located somewhere here. You might want to stop here and see if you can find our javascript file (it has the .js extension) that is running the quiz. 
 .  
 .  
 .  
@@ -47,18 +47,21 @@ After a few minutes of searching, I found something interesting. `"reviewWithCor
 
 <br/><br/>
 `"reviewWithCorrectAnswer"` is a [*literal 🖱️*](## "A literal is a value that is directly embedded in the code, as opposed to a variable which is assigned a value") and a [*string 🖱️*](## "A string is a string of characters, number, etc. denoted by the two quotation marks surrounding it"). We can see that the [*variable 🖱️*](## "A variable is a container that stores a value. For example, a variable named dog can be equal to 1, or 'hello', or -69, or 'banana' depeneding on what it was assigned") `a` is being check to see if it is equal to the string literal `"reviewWithoutCorrectAnswers"` and `"reiviewWithCorrectAnswers"` as there is an `==` operator between them. Meaning the variable `a` was either set to be `"reviewWithoutCorrectAnswers"` or `"reviewWithCorrectAnswers"` earlier on in the code.  
-Hm... So that means that all we have to do is find the code that sets something equal to `"reviewWithCorrectAnswers"`. There are 23 search results for `"reviewWithCorrectAnswers"` we can go through each of them to check what the codes do.
+Hm... So that means that all we have to do is find the code that does that and make it so it always sets to `"reviewWithCorrectAnswers"`. There are 23 search results for `"reviewWithCorrectAnswers"` we can go through each of them to check what the codes do.
 
-So I went through all the results and we find two `"reviewWithCorrectAnswers"` that are used to set something rather than being used for `==` comparison. Let's look at the first one. It is located in a [*function 🖱️*](## "A function is commonly used code that grouped together between `{` and `}` for convenience and easy usage") called `Bz` (the function name may be different on your scorm package). 
+So I went through all the results and found two `"reviewWithCorrectAnswers"` that are used to set something rather than being used for `==` comparison.  
+Let's look at the first one. It is located in a [*function 🖱️*](## "A function is commonly used code that grouped together between `{` and `}` for convenience and easy usage") called `Bz` (the function name may be different on your scorm package). 
 
 ![](6.PNG)
 
-As we can see, the function performs some incomprehensible lines of code, which we can assume is checking the state of the quiz and whether or not to display the answers, before [*returning 🖱️*](## "The `return` keyword, at line 28074, simply means the output of the function is-") `"reviewing"` or `"reviewWithCorrectAnswers"` or `"reviewWithoutCorrectAnswers"` or `"normal"`  
+As we can see, the function performs some incomprehensible lines of code, which we can assume is checking the state of the quiz and whether or not to display the answers, before [*returning 🖱️*](## "The `return` keyword, at line 28074, simply means the output of the function is-") either `"reviewing"` or `"reviewWithCorrectAnswers"` or `"reviewWithoutCorrectAnswers"` or `"normal"`.  
 So somewhere in the code, there is something that is [*calling 🖱️*](## "Calling a function means to run the function code at another location in the file.") this function to check whether or not to review with the correct answers.  
 So by editing this function to always return `"reviewWithCorrectAnswers"` this will cause anything that uses this function to check whether or not to display the correct answer to always display the correct answers.
 
-The question is, how do we edit the function?. You see we can't just click into the javascript file and start typing into it like a text editor.  
-💡 We have to redefine the function through the console. In order to do that we must first understand what are scopes. Scopes are one way mirrors, someone in a higher scope cannot see someone in a lower scope but someone in a lower scope can see the person in the higher scope. In the context of code, code running outside a function cannot use variables that are defined in the function(they can only call the function itself) but the code inside the function can use everything outside. There are some nuances but this is all I'm capable of explaining.
+The question is, how do we edit the function? You see we can't just click into the javascript file and start typing into it like a text editor.
+
+💡 We have to redefine the function through the console. In order to do that we must first understand what are scopes.  
+Scopes are like one way mirrors, someone in a higher scope cannot see someone in a lower scope but someone in a lower scope can see the person in the higher scope. In the context of code, code running outside a function cannot use variables that are defined in the function(they can only call the function itself) but the code inside the function can use everything outside. There are some nuances but this is all I'm capable of explaining.
 
 Now, `Bz` is a function located inside another function. We can see this as there is a one tab indent before the start of `function Bz(a, b) {` at line 28063, if we scroll up to line 1 where there is a `{` and the last line of the file where there is a `}` we can see that the entire Javascript file is encased in a function. This function however does not have a name; it is called an anonymous function. Unlike a normal function that waits to be called, the code in an anonymous function is ran the moment it is defined.  
 It looks like this:
@@ -72,7 +75,7 @@ It looks like this:
 So in order to change/modify `Bz` we will need to get into the anonymous function then we will be in the same scope as `Bz`.  
 In the console, most of the time we will be in global scope, which is the highest scope possible. To get into the same scope as `Bz` we need to use the Debugger.  
 Go to line 1 of the Javascript file and click to the left of the line number to set a [*breakpoint 🖱️*](## "A breakpoint is where the debugger pauses the code execution temporarily").  
-You should see a blue arrow appear.
+You should see a blue arrow appear on the line number.
 
 ![](7.PNG)
 
@@ -82,7 +85,7 @@ To go into the function, simply click the 'Step' button
 
 ![](8.PNG)
 
-Now you are in the function, all you have to do is redefine the function in the console.
+Now you are in the function, all you have to do is redefine the function in the console.  
 Copy and paste this into the console and press enter
 ```
 Bz = function(){
@@ -103,7 +106,7 @@ We start the quiz and the correct answers are displayed to us.
 
 <br/><br/>
 
-## Making a UserScript with TamperMonkey
+## Part 2. Making a UserScript with TamperMonkey
 
 Well what if you want to cheat but you don't want to do all the steps everytime you have to take the quiz? You can achieve that with TamperMonkey. TamperMonkey is a userscript manager that allows you to run a certain script on the browser the moment you enter a page. At this point you would need to have a basic level of programming knowledge to understand what's going on.
 
