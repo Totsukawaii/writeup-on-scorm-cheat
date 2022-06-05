@@ -210,20 +210,24 @@ window.String.prototype.split = function(){ // Redefine the function
 
 Okay let me explain.
 
-### `let count = 0;` `&& count == 0` `count = 1;`
+<hr/>
+`let count = 0;` `&& count == 0` `count = 1;`
 
 These few codes are to make sure Bz is only redefined once. Since `String.prototype.split` is going to be called thousands of times as it is a common global function.
 
-### `typeof arguments.callee.caller.caller == 'function' && arguments.callee.caller.caller.toString().includes("reviewWithCorrectAnswers")`
+<hr/>
+`typeof arguments.callee.caller.caller == 'function' && arguments.callee.caller.caller.toString().includes("reviewWithCorrectAnswers")`
 
-`arguments.callee.caller.caller` refers to the anonymous function embodying the quizplayer.js file
-This basically makes sure that the `String.prototype.split` call came from the anonymous function in quizplayer.js instead of another random call from another file.
+`arguments.callee.caller.caller` refers to the anonymous function embodying the quizplayer.js file.  
+This few codes basically makes sure that the `String.prototype.split` call came from the anonymous function in quizplayer.js instead of another random call from another file.
 
-### `let temp = arguments.callee.caller.caller.toString();`
+<hr/>
+`let temp = arguments.callee.caller.caller.toString();`
 
 This stores the string of our anonymous function in a variable `temp`
 
-### `/var c=[A-Za-z][A-Za-z]\(a\)\,d\=[A-Za-z][A-Za-z]\(c\.settings\(\)\)\;/`
+<hr/>
+`/var c=[A-Za-z][A-Za-z]\(a\)\,d\=[A-Za-z][A-Za-z]\(c\.settings\(\)\)\;/`
 
 This is the regex string to search for a specific pattern.  
 The pattern it is finding is the one highlighted below:
@@ -232,11 +236,13 @@ The pattern it is finding is the one highlighted below:
 
 Note the reason why we need to use regex in the first place is because the names of the variables and functions change throughout different scorm packages. The function `Bz` maybe be named a differently e.g. `Ca`. Therefore the regex string takes into account these changes and finds the pattern in the code.
 
-### `temp = temp.replace(reg, 'return "reviewWithCorrectAnswers";');`
+<hr/>
+`temp = temp.replace(reg, 'return "reviewWithCorrectAnswers";');`
 
 This replaces the string found with regex (highlighted in the above image) with `return "reviewWithCorrectAnswers"`
 
-### `let newfunction = new Function(temp.substring(temp.indexOf('{')+1,temp.lastIndexOf('}')));`
+<hr/>
+`let newfunction = new Function(temp.substring(temp.indexOf('{')+1,temp.lastIndexOf('}')));`
 
 This creates a fake anonymous function copy of the previous anonymous function but we have edited the `Bz` function to `return "reviewWithCorrectAnswers"`
 
