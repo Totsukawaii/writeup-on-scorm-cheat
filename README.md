@@ -48,7 +48,7 @@ After a few minutes of searching, I found something interesting. `"reviewWithCor
 ![](5.PNG)
 
 <br/><br/>
-`"reviewWithCorrectAnswer"` is a [*literal 🖱️*](## "A literal is a value that is directly embedded in the code, as opposed to a variable which is assigned a value") and a [*string 🖱️*](## "A string is a string of characters, number, etc. denoted by the two quotation marks surrounding it"). We can see that the [*variable 🖱️*](## "A variable is a container that stores a value. For example, a variable named dog can be equal to 1, or 'hello', or -69, or 'banana' depeneding on what it was assigned") `a` is being check to see if it is equal to the string literal `"reviewWithoutCorrectAnswers"` and `"reviewWithCorrectAnswers"` as there is an `==` operator between them. Meaning the variable `a` was either set to be `"reviewWithoutCorrectAnswers"` or `"reviewWithCorrectAnswers"` earlier on in the code.  
+`"reviewWithCorrectAnswer"` is a [*literal 🖱️*](## "A literal is a value that is directly embedded in the code, as opposed to a variable which is assigned a value") and a [*string 🖱️*](## "A string is a string of characters, number, etc. denoted by the two quotation marks surrounding it"). We can see that the [*variable 🖱️*](## "A variable is a container that stores a value. For example, a variable named dog can be equal to 1, or 'hello', or -69, or 'banana' depending on what it was assigned") `a` is being check to see if it is equal to the string literal `"reviewWithoutCorrectAnswers"` and `"reviewWithCorrectAnswers"` as there is an `==` operator between them. Meaning the variable `a` was either set to be `"reviewWithoutCorrectAnswers"` or `"reviewWithCorrectAnswers"` earlier on in the code.  
 Hm... So that means that all we have to do is find the code that does that and make it so it always sets to `"reviewWithCorrectAnswers"`. There are 23 search results for `"reviewWithCorrectAnswers"` we can go through each of them to check what the codes do.
 
 So I went through all the results and found two `"reviewWithCorrectAnswers"` that are used to set something rather than being used for `==` comparison.  
@@ -117,8 +117,8 @@ I already made the script so you can [download](https://greasyfork.org/en/script
 Cheating without the debugger is more complicated. We cannot set a breakpoint with a userscript to get in the same scope of the `Bz` function. We also cannot reference the anonymous function as it has no name.
 
 I will now introduce a game hacking technique called "hooking". Essentially, we are injecting some code inside the body of the hooked function.  
-What we are hooking are common global functions that will commonly be used. such as `String.prototype.split` or `Array.prototype.push()`. Really anything thing that starts with a datatype followed by `.prototype` then a function/method of that datatype like `.split()` or `.push()`
-This is the code used for hooking the `String.prototype.split` global function.
+What we are hooking are common global functions that will commonly be used. such as `String.prototype.split()` or `Array.prototype.push()`. Really anything thing that starts with a datatype followed by `.prototype` then a function/method of that datatype like `.split()` or `.push()`
+This is the code used for hooking the `String.prototype.split()` global function.
 ```
 const oldfunction = window.String.prototype.split; // Grab original function
 window.String.prototype.split = function(){ // Redefine the function
@@ -133,9 +133,9 @@ window.String.prototype.split = function(){ // Redefine the function
 `window` is the global object. Any global function will start off with `window.`.
 
 In this case, `String.prototype` is the blueprint of any string variable that is created. Meaning any string variable created will have a function/method named `split()`. What the method `split()` does is it turns the string into an array. But what it does doesn't matter to us, all we need to know is that it is a global function that is being called from inside of the anonymous function.  
-With hooking, we can hook on to a global function, like `String.prototype.split`, that is used inside the anonymous function and from there we can access/modify anything inside the anonymous function. Kind of.
+With hooking, we can hook on to a global function, like `String.prototype.split()`, that is used inside the anonymous function and from there we can access/modify anything inside the anonymous function. Kind of.
 
-Here is the first instance of `String.prototype.split` in the anonymous function.
+Here is the first instance of `String.prototype.split()` in the anonymous function.
 
 ![](12.PNG)
 
@@ -214,14 +214,14 @@ Okay let me explain.
 
 `let count = 0;` `&& count == 0` `count = 1;`
 
-These few codes are to make sure Bz is only redefined once. Since `String.prototype.split` is going to be called thousands of times as it is a common global function.
+These few codes are to make sure Bz is only redefined once. Since `String.prototype.split()` is going to be called thousands of times as it is a common global function.
 
 ---
 
 `typeof arguments.callee.caller.caller == 'function' && arguments.callee.caller.caller.toString().includes("reviewWithCorrectAnswers")`
 
 `arguments.callee.caller.caller` refers to the anonymous function embodying the quizplayer.js file.  
-This few codes basically makes sure that the `String.prototype.split` call came from the anonymous function in quizplayer.js instead of another random call from another file.
+This few codes basically makes sure that the `String.prototype.split()` call came from the anonymous function in quizplayer.js instead of another random call from another file.
 
 ---
 
